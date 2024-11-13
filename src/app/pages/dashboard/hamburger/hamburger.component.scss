@@ -1,0 +1,30 @@
+.line {
+  width: 200px;
+  height: 13px;
+  background-color: black;
+  margin: 45px 0px;
+  border-radius: 9px;
+  transition: 500ms all;
+  transform-origin: top right;
+}
+
+.main {
+  overflow: hidden;
+  transform-origin: top right;
+}
+
+.opened {
+  height: 150px;
+  width: 179px;
+  .line:nth-of-type(1) {
+    transform: rotateZ(-45deg) translate(12px, -53px);
+  }
+
+  .line:nth-of-type(2) {
+    transform: translate(180px, -20px);
+  }
+  
+  .line:nth-of-type(3) {
+    transform: rotateZ(45deg) translate(-29px, -1px);
+  }
+}

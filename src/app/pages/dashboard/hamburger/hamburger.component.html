@@ -1,0 +1,12 @@
+<div class="container" style="
+display: flex;
+align-items: center;
+justify-content: center;
+height: 500px;
+">
+  <div class="main" [ngClass]="{'opened': opened}" (click)="opened = !opened;">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+  </div>
+</div>

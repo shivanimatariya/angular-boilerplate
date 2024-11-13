@@ -1,0 +1,58 @@
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img
+        src="http://webashlar.com/img/logo/favicon.png"
+        id="icon"
+        alt="User Icon"
+      />
+    </div>
+
+    <!-- Login Form -->
+    <form #f="ngForm" (ngSubmit)="f?.form?.valid && loginUser()">
+      <input
+        type="text"
+        id="login"
+        class="fadeIn second"
+        name="login"
+        placeholder="Username"
+        #username="ngModel"
+        [(ngModel)]="userDetail.userName"
+        [ngClass]="{ error: (f?.submitted && username?.invalid) || invalidLogin }"
+        required
+        autocomplete="off"
+      />
+      <span *ngIf="f?.submitted && username?.invalid" style="color: red"
+        >Username is required</span
+      >
+      <input
+        type="password"
+        id="password"
+        class="fadeIn third"
+        name="password"
+        #password="ngModel"
+        [(ngModel)]="userDetail.password"
+        placeholder="Password"
+        required
+        [ngClass]="{ error: (f?.submitted && password?.invalid) || invalidLogin }"
+        autocomplete="off"
+      />
+      <div *ngIf="f?.submitted && password?.invalid" style="color: red">
+        Password is required
+      </div>
+      <input type="submit" class="fadeIn fourth" value="Log In" />
+      <div *ngIf="invalidLogin" style="color: red">
+        Username or Password incorrect, please try again
+      </div>
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      Haven't seen this form earlier?
+      <a class="underlineHover" [routerLink]="['/auth/register']">Register</a>
+    </div>
+  </div>
+</div>

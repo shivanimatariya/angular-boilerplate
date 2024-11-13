@@ -1,0 +1,122 @@
+<div class="container">
+  <h1>Users Data</h1>
+  <table class="table table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col" style="width: 50px">#</th>
+        <th scope="col" style="width: 430px">User Name</th>
+        <th scope="col" style="width: 430px">Password</th>
+        <th scope="col" style="width: 200px">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of data; let i = index">
+        <th scope="row">{{ i + 1 }}</th>
+        <ng-container *ngIf="editIndex !== i">
+          <td>
+            {{ item?.userName }}
+          </td>
+          <td>
+            {{ item?.password }}
+          </td>
+          <td>
+            <a
+              class="link c-pointer"
+              (click)="editIndex = i; editUserClick(item)"
+              >Edit
+            </a>
+            <ng-container *ngIf="currentUser?.userName !== item?.userName">
+              |
+              <a
+                class="link c-pointer"
+                style="color: red"
+                (click)="DeleteItem(i)"
+                >Delete</a
+              >
+            </ng-container>
+          </td>
+        </ng-container>
+        <ng-container *ngIf="editIndex === i">
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="editUser.userName"
+              placeholder="User name"
+              name="name"
+            />
+            <span
+              *ngIf="saveClicked && editUser.userName.trim() === ''"
+              style="color: red"
+              >User name is required</span
+            >
+            <span
+              *ngIf="isUsernameAlreadyExists(editUser?.userName, i)"
+              style="color: red"
+              >User name already exists</span
+            >
+          </td>
+          <td>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="editUser.password"
+              placeholder="Password"
+              name="password"
+            />
+            <span
+              *ngIf="saveClicked && editUser.password.trim() === ''"
+              style="color: red"
+              >Password is required</span
+            >
+          </td>
+          <td>
+            <button class="btn btn-primary mr-2" (click)="UpdateRecord(i)">
+              Save
+            </button>
+            <button class="btn btn-secondary" (click)="editIndex = -1">
+              Cancel
+            </button>
+          </td>
+        </ng-container>
+      </tr>
+      <tr *ngIf="editIndex === -1">
+        <th></th>
+        <td>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="newUser.userName"
+            placeholder="User name"
+            name="name"
+          />
+          <span *ngIf="addClicked && !newUser?.userName" style="color: red"
+            >User name is required</span
+          >
+          <span
+            *ngIf="isUsernameAlreadyExists(newUser?.userName)"
+            style="color: red"
+            >User name already exists</span
+          >
+        </td>
+        <td>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="newUser.password"
+            placeholder="Password"
+            name="password"
+          />
+          <span *ngIf="addClicked && !newUser?.password" style="color: red"
+            >Password is required</span
+          >
+        </td>
+        <td>
+          <button class="btn btn-primary mr-2" (click)="addUser()">
+            Add New User
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

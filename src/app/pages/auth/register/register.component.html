@@ -1,0 +1,69 @@
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img
+        src="http://webashlar.com/img/logo/favicon.png"
+        id="icon"
+        alt="User Icon"
+      />
+    </div>
+
+    <!-- Login Form -->
+    <form #f="ngForm" [formGroup]="registerForm" (ngSubmit)="f.form?.valid && registerUser()">
+      <input
+        type="text"
+        id="login"
+        class="fadeIn second"
+        name="name"
+        formControlName="userName"
+        placeholder="Username"
+        autocomplete="off"
+        [ngClass]="{'error': f?.submitted && registerFormControl.userName?.errors}"
+      />
+      <span *ngIf="f?.submitted && registerFormControl.userName?.errors?.required" style="color: red"
+        >Username is required</span
+      >
+      <span *ngIf="userNameExists" style="color: red"
+        >Username already exists</span
+      >
+      <input
+        type="password"
+        id="password"
+        class="fadeIn third"
+        name="pswd"
+        formControlName="password"
+        placeholder="Password"
+        [ngClass]="{'error': f?.submitted && registerFormControl.password?.errors}"
+      />
+      <span *ngIf="f?.submitted && registerFormControl.password?.errors?.required" style="color: red"
+        >Password is required</span
+      >
+      <input
+        type="password"
+        id="cpassword"
+        class="fadeIn third"
+        name="cpswd"
+        formControlName="confirmPassword"
+        placeholder="Confirm Password"
+        autocomplete="off"
+        [ngClass]="{'error': f?.submitted && registerFormControl.confirmPassword?.errors}"
+      />
+      <div *ngIf="f?.submitted && registerFormControl.confirmPassword?.errors?.required" style="color: red">
+        Confirm Password is required
+      </div>
+      <div *ngIf="f?.submitted && !registerFormControl.confirmPassword?.errors?.required && registerFormControl.confirmPassword?.errors?.error" style="color: red">
+        {{ registerFormControl.confirmPassword?.errors?.error }}
+      </div>
+      <input type="submit" class="fadeIn fourth" value="Register" />
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      Already have an account?
+      <a class="underlineHover" [routerLink]="['/auth/login']">Login</a>
+    </div>
+  </div>
+</div>
